@@ -15,6 +15,35 @@ import {
     ChangeDetectorRef} from '@angular/core';
 
 @Directive({
+    selector: '[sticky-parent]',
+})
+
+export class StickyParentDirective implements OnInit, OnDestroy, AfterViewInit {
+
+    private pelem: any;
+
+    constructor(private element: ElementRef) {
+        this.pelem = element.nativeElement;
+    }
+
+    ngOnInit(): void {
+        this.pelem.classList.add('sticky-parent');
+    }
+
+    ngAfterViewInit(): void {
+
+
+
+    }
+
+    ngOnDestroy(): void {
+        this.pelem.classList.remove('sticky-parent');
+    }
+}
+
+
+
+@Directive({
     selector: '[mdsticky]',
 })
 
@@ -65,7 +94,8 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
 
         // define scroll container as parent element
-        this.container = this.elem.parentNode;
+        //this.container = this.elem.parentNode;
+        this.container = document.querySelector('.sticky-parent');
         this.stickyParent = document.querySelector('.sticky-parent');
 
         console.log('original container: ' + this.container);

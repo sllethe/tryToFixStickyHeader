@@ -10,6 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var StickyParentDirective = (function () {
+    function StickyParentDirective(element) {
+        this.element = element;
+        this.pelem = element.nativeElement;
+    }
+    StickyParentDirective.prototype.ngOnInit = function () {
+        this.pelem.classList.add('sticky-parent');
+    };
+    StickyParentDirective.prototype.ngAfterViewInit = function () {
+    };
+    StickyParentDirective.prototype.ngOnDestroy = function () {
+        this.pelem.classList.remove('sticky-parent');
+    };
+    return StickyParentDirective;
+}());
+StickyParentDirective = __decorate([
+    core_1.Directive({
+        selector: '[sticky-parent]',
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], StickyParentDirective);
+exports.StickyParentDirective = StickyParentDirective;
 var StickyHeaderDirective = (function () {
     function StickyHeaderDirective(element) {
         this.element = element;
@@ -36,7 +58,8 @@ var StickyHeaderDirective = (function () {
     };
     StickyHeaderDirective.prototype.ngAfterViewInit = function () {
         // define scroll container as parent element
-        this.container = this.elem.parentNode;
+        //this.container = this.elem.parentNode;
+        this.container = document.querySelector('.sticky-parent');
         this.stickyParent = document.querySelector('.sticky-parent');
         console.log('original container: ' + this.container);
         console.log('my stickyParent: ' + this.stickyParent);

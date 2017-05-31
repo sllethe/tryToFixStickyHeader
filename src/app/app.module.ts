@@ -4,7 +4,7 @@ import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent }  from './app.component';
 import { StickyHeaderComponent } from './sticky-header';
-import { StickyHeaderDirective } from './sticky-header-dr';
+import { StickyHeaderDirective, StickyParentDirective } from './sticky-header-dr';
 
 export {StickyHeaderDirective};
 
@@ -17,8 +17,9 @@ export {StickyHeaderDirective};
     AppComponent,
     StickyHeaderComponent,
     StickyHeaderDirective,
+    StickyParentDirective,
   ],
-  exports: [StickyHeaderComponent, StickyHeaderDirective],
+  exports: [StickyHeaderComponent, StickyHeaderDirective, StickyParentDirective],
   bootstrap: [ AppComponent ]
 })
 

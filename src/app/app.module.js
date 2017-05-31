@@ -28,8 +28,9 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             sticky_header_1.StickyHeaderComponent,
             sticky_header_dr_1.StickyHeaderDirective,
+            sticky_header_dr_1.StickyParentDirective,
         ],
-        exports: [sticky_header_1.StickyHeaderComponent, sticky_header_dr_1.StickyHeaderDirective],
+        exports: [sticky_header_1.StickyHeaderComponent, sticky_header_dr_1.StickyHeaderDirective, sticky_header_dr_1.StickyParentDirective],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
