@@ -15,7 +15,7 @@ import {
     ChangeDetectorRef} from '@angular/core';
 
 @Directive({
-    selector: '[sticky-parent]',
+    selector: '[md-sticky-viewport]',
 })
 
 export class StickyParentDirective implements OnInit, OnDestroy, AfterViewInit {
@@ -44,7 +44,7 @@ export class StickyParentDirective implements OnInit, OnDestroy, AfterViewInit {
 
 
 @Directive({
-    selector: '[mdsticky]',
+    selector: '[md-sticky]',
 })
 
 
@@ -94,11 +94,18 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
 
         // define scroll container as parent element
-        //this.container = this.elem.parentNode;
-        this.container = document.querySelector('.sticky-parent');
+        this.container = this.elem.parentNode;
+
+        //this.container = document.querySelector('.sticky-parent');
         this.stickyParent = document.querySelector('.sticky-parent');
 
+        while (!this.container.classList.contains('sticky-parent')) {
+            this.container = this.elem.parentNode;
+        }
+
         console.log('original container: ' + this.container);
+        console.log('original container class: ' + this.container.classList.contains('sticky-parent'));
+
         console.log('my stickyParent: ' + this.stickyParent);
 
         this.originalCss = {

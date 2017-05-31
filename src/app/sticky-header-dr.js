@@ -27,7 +27,7 @@ var StickyParentDirective = (function () {
 }());
 StickyParentDirective = __decorate([
     core_1.Directive({
-        selector: '[sticky-parent]',
+        selector: '[md-sticky-viewport]',
     }),
     __metadata("design:paramtypes", [core_1.ElementRef])
 ], StickyParentDirective);
@@ -58,10 +58,14 @@ var StickyHeaderDirective = (function () {
     };
     StickyHeaderDirective.prototype.ngAfterViewInit = function () {
         // define scroll container as parent element
-        //this.container = this.elem.parentNode;
-        this.container = document.querySelector('.sticky-parent');
+        this.container = this.elem.parentNode;
+        //this.container = document.querySelector('.sticky-parent');
         this.stickyParent = document.querySelector('.sticky-parent');
+        while (!this.container.classList.contains('sticky-parent')) {
+            this.container = this.elem.parentNode;
+        }
         console.log('original container: ' + this.container);
+        console.log('original container class: ' + this.container.classList.contains('sticky-parent'));
         console.log('my stickyParent: ' + this.stickyParent);
         this.originalCss = {
             zIndex: this.getCssValue(this.elem, 'zIndex'),
@@ -268,7 +272,7 @@ __decorate([
 ], StickyHeaderDirective.prototype, "deactivated", void 0);
 StickyHeaderDirective = __decorate([
     core_1.Directive({
-        selector: '[mdsticky]',
+        selector: '[md-sticky]',
     }),
     __metadata("design:paramtypes", [core_1.ElementRef])
 ], StickyHeaderDirective);
