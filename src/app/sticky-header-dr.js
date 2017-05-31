@@ -11,18 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var StickyHeaderDirective = (function () {
-    function StickyHeaderDirective() {
-    }
-    return StickyHeaderDirective;
-}());
-StickyHeaderDirective = __decorate([
-    core_1.Directive({
-        selector: 'mdsticky',
-    })
-], StickyHeaderDirective);
-exports.StickyHeaderDirective = StickyHeaderDirective;
-var StickyHeaderComponent = (function () {
-    function StickyHeaderComponent(element) {
+    function StickyHeaderDirective(element) {
         this.element = element;
         this.zIndex = 10;
         this.width = 'auto'; //sticky's width
@@ -40,12 +29,12 @@ var StickyHeaderComponent = (function () {
         this.isStuck = false;
         this.elem = element.nativeElement;
     }
-    StickyHeaderComponent.prototype.ngOnInit = function () {
+    StickyHeaderDirective.prototype.ngOnInit = function () {
         // window.addEventListener('scroll', this.onScrollBind);
         // window.addEventListener('resize', this.onResizeBind);
         this.attach();
     };
-    StickyHeaderComponent.prototype.ngAfterViewInit = function () {
+    StickyHeaderDirective.prototype.ngAfterViewInit = function () {
         // define scroll container as parent element
         this.container = this.elem.parentNode;
         this.stickyParent = document.querySelector('.sticky-parent');
@@ -70,24 +59,24 @@ var StickyHeaderComponent = (function () {
         this.defineDimensions();
         this.sticker();
     };
-    StickyHeaderComponent.prototype.ngOnDestroy = function () {
+    StickyHeaderDirective.prototype.ngOnDestroy = function () {
         // window.removeEventListener('scroll', this.onScrollBind);
         // window.removeEventListener('resize', this.onResizeBind);
         this.detach();
     };
-    StickyHeaderComponent.prototype.attach = function () {
+    StickyHeaderDirective.prototype.attach = function () {
         window.addEventListener('scroll', this.onScrollBind);
         window.addEventListener('resize', this.onResizeBind);
     };
-    StickyHeaderComponent.prototype.detach = function () {
+    StickyHeaderDirective.prototype.detach = function () {
         window.removeEventListener('scroll', this.onScrollBind);
         window.removeEventListener('resize', this.onResizeBind);
     };
-    StickyHeaderComponent.prototype.onScroll = function () {
+    StickyHeaderDirective.prototype.onScroll = function () {
         this.defineDimensions();
         this.sticker();
     };
-    StickyHeaderComponent.prototype.onResize = function () {
+    StickyHeaderDirective.prototype.onResize = function () {
         this.defineDimensions();
         this.sticker();
         if (this.isStuck) {
@@ -101,7 +90,7 @@ var StickyHeaderComponent = (function () {
     // 这里的top、left和css中的理解很相似，width、height是元素自身的宽高，
     // 但是right，bottom和css中的理解有点不一样。right是指元素右边界距窗口最左边的距离，
     // bottom是指元素下边界距窗口最上面的距离。
-    StickyHeaderComponent.prototype.defineDimensions = function () {
+    StickyHeaderDirective.prototype.defineDimensions = function () {
         var containerTop = this.getBoundingClientRectValue(this.container, 'top');
         this.windowHeight = window.innerHeight;
         this.elemHeight = this.getCssNumber(this.elem, 'height');
@@ -121,11 +110,11 @@ var StickyHeaderComponent = (function () {
             this.scrollFinish = document.body.offsetHeight;
         }
     };
-    StickyHeaderComponent.prototype.resetElement = function () {
+    StickyHeaderDirective.prototype.resetElement = function () {
         this.elem.classList.remove(this.stickClass);
         Object.assign(this.elem.style, this.originalCss);
     };
-    StickyHeaderComponent.prototype.stuckElement = function () {
+    StickyHeaderDirective.prototype.stuckElement = function () {
         this.isStuck = true;
         this.elem.classList.remove(this.endStickClass);
         this.elem.classList.add(this.stickClass);
@@ -139,7 +128,7 @@ var StickyHeaderComponent = (function () {
         this.elem.style.width = this.width;
         this.activated.next(this.elem);
     };
-    StickyHeaderComponent.prototype.unstuckElement = function () {
+    StickyHeaderDirective.prototype.unstuckElement = function () {
         this.isStuck = false;
         this.elem.classList.add(this.endStickClass);
         this.container.style.position = 'relative';
@@ -151,13 +140,13 @@ var StickyHeaderComponent = (function () {
         this.elem.style.width = this.width;
         this.deactivated.next(this.elem);
     };
-    StickyHeaderComponent.prototype.matchMediaQuery = function () {
+    StickyHeaderDirective.prototype.matchMediaQuery = function () {
         if (!this.mediaQuery)
             return true;
         return (window.matchMedia('(' + this.mediaQuery + ')').matches ||
             window.matchMedia(this.mediaQuery).matches);
     };
-    StickyHeaderComponent.prototype.sticker = function () {
+    StickyHeaderDirective.prototype.sticker = function () {
         // check media query
         if (this.isStuck && !this.matchMediaQuery()) {
             this.resetElement();
@@ -180,12 +169,12 @@ var StickyHeaderComponent = (function () {
             this.stuckElement();
         }
     };
-    StickyHeaderComponent.prototype.scrollbarYPos = function () {
+    StickyHeaderDirective.prototype.scrollbarYPos = function () {
         return window.pageYOffset || document.documentElement.scrollTop; //
         //In Javascript window.pageYOffset and document.documentElement.scrollTop both measures
         // the distance of an window top to its topmost visible content in pixel
     };
-    StickyHeaderComponent.prototype.getBoundingClientRectValue = function (element, property) {
+    StickyHeaderDirective.prototype.getBoundingClientRectValue = function (element, property) {
         var result = 0;
         if (element.getBoundingClientRect) {
             var rect = element.getBoundingClientRect();
@@ -195,7 +184,7 @@ var StickyHeaderComponent = (function () {
         console.log('current element: ' + element);
         return result;
     };
-    StickyHeaderComponent.prototype.getCssValue = function (element, property) {
+    StickyHeaderDirective.prototype.getCssValue = function (element, property) {
         var result = '';
         if (typeof window.getComputedStyle !== 'undefined') {
             result = window.getComputedStyle(element, null).getPropertyValue(property);
@@ -205,62 +194,60 @@ var StickyHeaderComponent = (function () {
         }
         return result;
     };
-    StickyHeaderComponent.prototype.getCssNumber = function (element, property) {
+    StickyHeaderDirective.prototype.getCssNumber = function (element, property) {
         return parseInt(this.getCssValue(element, property), 10) || 0;
     };
-    return StickyHeaderComponent;
+    return StickyHeaderDirective;
 }());
 __decorate([
     core_1.Input('sticky-zIndex'),
     __metadata("design:type", Number)
-], StickyHeaderComponent.prototype, "zIndex", void 0);
+], StickyHeaderDirective.prototype, "zIndex", void 0);
 __decorate([
     core_1.Input('sticky-width'),
     __metadata("design:type", String)
-], StickyHeaderComponent.prototype, "width", void 0);
+], StickyHeaderDirective.prototype, "width", void 0);
 __decorate([
     core_1.Input('sticky-offset-top'),
     __metadata("design:type", Number)
-], StickyHeaderComponent.prototype, "offsetTop", void 0);
+], StickyHeaderDirective.prototype, "offsetTop", void 0);
 __decorate([
     core_1.Input('sticky-offset-bottom'),
     __metadata("design:type", Number)
-], StickyHeaderComponent.prototype, "offsetBottom", void 0);
+], StickyHeaderDirective.prototype, "offsetBottom", void 0);
 __decorate([
     core_1.Input('sticky-start'),
     __metadata("design:type", Number)
-], StickyHeaderComponent.prototype, "start", void 0);
+], StickyHeaderDirective.prototype, "start", void 0);
 __decorate([
     core_1.Input('sticky-class'),
     __metadata("design:type", String)
-], StickyHeaderComponent.prototype, "stickClass", void 0);
+], StickyHeaderDirective.prototype, "stickClass", void 0);
 __decorate([
     core_1.Input('sticky-end-class'),
     __metadata("design:type", String)
-], StickyHeaderComponent.prototype, "endStickClass", void 0);
+], StickyHeaderDirective.prototype, "endStickClass", void 0);
 __decorate([
     core_1.Input('sticky-media-query'),
     __metadata("design:type", String)
-], StickyHeaderComponent.prototype, "mediaQuery", void 0);
+], StickyHeaderDirective.prototype, "mediaQuery", void 0);
 __decorate([
     core_1.Input('sticky-parent'),
     __metadata("design:type", Boolean)
-], StickyHeaderComponent.prototype, "parentMode", void 0);
+], StickyHeaderDirective.prototype, "parentMode", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
-], StickyHeaderComponent.prototype, "activated", void 0);
+], StickyHeaderDirective.prototype, "activated", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
-], StickyHeaderComponent.prototype, "deactivated", void 0);
-StickyHeaderComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'sticky',
-        template: '<ng-content></ng-content>',
+], StickyHeaderDirective.prototype, "deactivated", void 0);
+StickyHeaderDirective = __decorate([
+    core_1.Directive({
+        selector: '[mdsticky]',
     }),
     __metadata("design:paramtypes", [core_1.ElementRef])
-], StickyHeaderComponent);
-exports.StickyHeaderComponent = StickyHeaderComponent;
-//# sourceMappingURL=sticky-header.js.map
+], StickyHeaderDirective);
+exports.StickyHeaderDirective = StickyHeaderDirective;
+//# sourceMappingURL=sticky-header-dr.js.map

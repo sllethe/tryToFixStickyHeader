@@ -20,8 +20,8 @@ var MdStickyHeaderModule = (function () {
 MdStickyHeaderModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule],
-        declarations: [sticky_header_1.StickyHeaderComponent],
-        exports: [sticky_header_1.StickyHeaderComponent]
+        declarations: [sticky_header_1.StickyHeaderComponent, sticky_header_1.StickyHeaderDirective],
+        exports: [sticky_header_1.StickyHeaderComponent, sticky_header_1.StickyHeaderDirective]
     })
 ], MdStickyHeaderModule);
 exports.MdStickyHeaderModule = MdStickyHeaderModule;

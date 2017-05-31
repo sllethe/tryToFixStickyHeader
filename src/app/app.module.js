@@ -11,6 +11,8 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms"); // <-- NgModel lives here
 var app_component_1 = require("./app.component");
 var sticky_header_1 = require("./sticky-header");
+var sticky_header_dr_1 = require("./sticky-header-dr");
+exports.StickyHeaderDirective = sticky_header_dr_1.StickyHeaderDirective;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,8 +27,9 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             sticky_header_1.StickyHeaderComponent,
+            sticky_header_dr_1.StickyHeaderDirective,
         ],
-        exports: [sticky_header_1.StickyHeaderComponent],
+        exports: [sticky_header_1.StickyHeaderComponent, sticky_header_dr_1.StickyHeaderDirective],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

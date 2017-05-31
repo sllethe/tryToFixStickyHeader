@@ -15,19 +15,12 @@ import {
     ChangeDetectorRef} from '@angular/core';
 
 @Directive({
-    selector: 'mdsticky',
+    selector: '[mdsticky]',
 })
 
-export class StickyHeaderDirective {}
 
 
-@Component({
-    moduleId: module.id,
-    selector: 'sticky',
-    template: '<ng-content></ng-content>',
-})
-
-export class StickyHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
 
     @Input('sticky-zIndex') zIndex: number = 10;
     @Input('sticky-width') width: string = 'auto'; //sticky's width
