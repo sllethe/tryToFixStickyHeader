@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {StickyHeaderComponent, StickyHeaderDirective} from './sticky-header';
+import {StickyParentDirective, StickyHeaderDirective} from './sticky-header-dr';
 
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [StickyHeaderComponent, StickyHeaderDirective],
-    exports: [StickyHeaderComponent, StickyHeaderDirective]
+    declarations: [StickyParentDirective, StickyHeaderDirective],
+    exports: [StickyParentDirective, StickyHeaderDirective]
 })
 export class MdStickyHeaderModule {}
 
 
-export * from './sticky-header';
+export * from './sticky-header-dr';

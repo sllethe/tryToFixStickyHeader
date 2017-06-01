@@ -11,7 +11,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var sticky_header_1 = require("./sticky-header");
+var sticky_header_dr_1 = require("./sticky-header-dr");
 var MdStickyHeaderModule = (function () {
     function MdStickyHeaderModule() {
     }
@@ -20,10 +20,10 @@ var MdStickyHeaderModule = (function () {
 MdStickyHeaderModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule],
-        declarations: [sticky_header_1.StickyHeaderComponent, sticky_header_1.StickyHeaderDirective],
-        exports: [sticky_header_1.StickyHeaderComponent, sticky_header_1.StickyHeaderDirective]
+        declarations: [sticky_header_dr_1.StickyParentDirective, sticky_header_dr_1.StickyHeaderDirective],
+        exports: [sticky_header_dr_1.StickyParentDirective, sticky_header_dr_1.StickyHeaderDirective]
     })
 ], MdStickyHeaderModule);
 exports.MdStickyHeaderModule = MdStickyHeaderModule;
-__export(require("./sticky-header"));
+__export(require("./sticky-header-dr"));
 //# sourceMappingURL=index.js.map

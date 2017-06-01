@@ -38,11 +38,11 @@ var StickyHeaderDirective = (function () {
         this.zIndex = 10;
         this.width = 'auto'; //sticky's width
         this.offsetTop = 0; //sticky距离页面顶端多远
-        this.offsetBottom = 0; //?
+        this.offsetBottom = 0;
         this.start = 0;
         this.stickClass = 'sticky';
         this.endStickClass = 'sticky-end';
-        this.mediaQuery = ''; //?
+        this.mediaQuery = '';
         this.parentMode = true;
         this.activated = new core_1.EventEmitter();
         this.deactivated = new core_1.EventEmitter();
@@ -52,8 +52,6 @@ var StickyHeaderDirective = (function () {
         this.elem = element.nativeElement;
     }
     StickyHeaderDirective.prototype.ngOnInit = function () {
-        // window.addEventListener('scroll', this.onScrollBind);
-        // window.addEventListener('resize', this.onResizeBind);
         this.attach();
     };
     StickyHeaderDirective.prototype.ngAfterViewInit = function () {
@@ -87,8 +85,6 @@ var StickyHeaderDirective = (function () {
         this.sticker();
     };
     StickyHeaderDirective.prototype.ngOnDestroy = function () {
-        // window.removeEventListener('scroll', this.onScrollBind);
-        // window.removeEventListener('resize', this.onResizeBind);
         this.detach();
     };
     StickyHeaderDirective.prototype.attach = function () {
@@ -123,13 +119,6 @@ var StickyHeaderDirective = (function () {
         this.elemHeight = this.getCssNumber(this.elem, 'height');
         this.containerHeight = this.getCssNumber(this.container, 'height');
         this.containerStart = containerTop + this.scrollbarYPos() - this.offsetTop + this.start;
-        console.log('+++++++++++++++++');
-        console.log('containertop: ' + containerTop);
-        console.log('windowHeight: ' + this.windowHeight);
-        console.log('elemHeight: ' + this.elemHeight);
-        console.log('containerHeight: ' + this.containerHeight);
-        console.log('this.scrollbarYPos(): ' + this.scrollbarYPos());
-        console.log('containerStart: ' + this.containerStart);
         if (this.parentMode) {
             this.scrollFinish = this.containerStart - this.start - this.offsetBottom + (this.containerHeight - this.elemHeight);
         }

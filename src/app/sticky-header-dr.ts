@@ -8,11 +8,7 @@ import {
     OnDestroy,
     AfterViewInit,
     ElementRef,
-    ViewContainerRef,
-    NgZone,
-    Optional,
-    Renderer2,
-    ChangeDetectorRef} from '@angular/core';
+    ViewContainerRef,} from '@angular/core';
 
 @Directive({
     selector: '[md-sticky-viewport]',
@@ -31,8 +27,6 @@ export class StickyParentDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-
-
 
     }
 
@@ -54,11 +48,11 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     @Input('sticky-zIndex') zIndex: number = 10;
     @Input('sticky-width') width: string = 'auto'; //sticky's width
     @Input('sticky-offset-top') offsetTop: number = 0; //sticky距离页面顶端多远
-    @Input('sticky-offset-bottom') offsetBottom: number = 0; //?
+    @Input('sticky-offset-bottom') offsetBottom: number = 0;
     @Input('sticky-start') start: number = 0;
     @Input('sticky-class') stickClass: string = 'sticky';
     @Input('sticky-end-class') endStickClass: string = 'sticky-end';
-    @Input('sticky-media-query') mediaQuery: string = ''; //?
+    @Input('sticky-media-query') mediaQuery: string = '';
     @Input('sticky-parent') parentMode: boolean = true;
 
     @Output() activated = new EventEmitter();
@@ -86,8 +80,6 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        // window.addEventListener('scroll', this.onScrollBind);
-        // window.addEventListener('resize', this.onResizeBind);
         this.attach();
     }
 
@@ -133,8 +125,6 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy(): void {
-        // window.removeEventListener('scroll', this.onScrollBind);
-        // window.removeEventListener('resize', this.onResizeBind);
         this.detach();
     }
 
@@ -177,14 +167,6 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
         this.elemHeight = this.getCssNumber(this.elem, 'height');
         this.containerHeight = this.getCssNumber(this.container, 'height');
         this.containerStart = containerTop + this.scrollbarYPos() - this.offsetTop + this.start;
-
-        console.log('+++++++++++++++++');
-        console.log('containertop: ' + containerTop );
-        console.log('windowHeight: ' + this.windowHeight );
-        console.log('elemHeight: ' + this.elemHeight );
-        console.log('containerHeight: ' + this.containerHeight );
-        console.log('this.scrollbarYPos(): '+ this.scrollbarYPos());
-        console.log('containerStart: ' + this.containerStart );
 
         if (this.parentMode) {
             this.scrollFinish = this.containerStart - this.start - this.offsetBottom + (this.containerHeight - this.elemHeight);
