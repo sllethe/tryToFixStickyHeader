@@ -58,6 +58,11 @@ nav {
     position: relative;
 }
 
+.democontent {
+    padding: 32px;
+    box-sizing: border-box;
+}
+
 .row:after {
     clear: both;
     content: ".";

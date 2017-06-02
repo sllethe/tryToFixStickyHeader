@@ -52,7 +52,6 @@ var StickyHeaderDirective = (function () {
         this.elem = element.nativeElement;
     }
     StickyHeaderDirective.prototype.ngOnInit = function () {
-        this.attach();
     };
     StickyHeaderDirective.prototype.ngAfterViewInit = function () {
         // define scroll container as parent element
@@ -65,6 +64,7 @@ var StickyHeaderDirective = (function () {
         console.log('original container: ' + this.container);
         console.log('original container class: ' + this.container.classList.contains('sticky-parent'));
         console.log('my stickyParent: ' + this.stickyParent);
+        console.log('this is: ' + this);
         this.originalCss = {
             zIndex: this.getCssValue(this.elem, 'zIndex'),
             position: this.getCssValue(this.elem, 'position'),
@@ -78,6 +78,8 @@ var StickyHeaderDirective = (function () {
         console.log('this element this.zIndex : ' + this.zIndex);
         console.log('this element originalCss.top : ' + this.originalCss.top);
         console.log('this element originalCss.right : ' + this.originalCss.right);
+        this.attach();
+        this.attachDocument();
         if (this.width == 'auto') {
             this.width = this.originalCss.width;
         }
@@ -86,14 +88,23 @@ var StickyHeaderDirective = (function () {
     };
     StickyHeaderDirective.prototype.ngOnDestroy = function () {
         this.detach();
+        this.detachDocument();
     };
     StickyHeaderDirective.prototype.attach = function () {
         window.addEventListener('scroll', this.onScrollBind);
         window.addEventListener('resize', this.onResizeBind);
     };
+    StickyHeaderDirective.prototype.attachDocument = function () {
+        document.addEventListener('scroll', this.onScrollBind);
+        document.addEventListener('resize', this.onResizeBind);
+    };
     StickyHeaderDirective.prototype.detach = function () {
         window.removeEventListener('scroll', this.onScrollBind);
         window.removeEventListener('resize', this.onResizeBind);
+    };
+    StickyHeaderDirective.prototype.detachDocument = function () {
+        document.removeEventListener('scroll', this.onScrollBind);
+        document.removeEventListener('resize', this.onResizeBind);
     };
     StickyHeaderDirective.prototype.onScroll = function () {
         this.defineDimensions();
@@ -119,6 +130,14 @@ var StickyHeaderDirective = (function () {
         this.elemHeight = this.getCssNumber(this.elem, 'height');
         this.containerHeight = this.getCssNumber(this.container, 'height');
         this.containerStart = containerTop + this.scrollbarYPos() - this.offsetTop + this.start;
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log('containerTop: ' + containerTop);
+        console.log('this.windowHeight: ' + this.windowHeight);
+        console.log('this.elemHeight: ' + this.elemHeight);
+        console.log('this.scrollbarYPos(): ' + this.scrollbarYPos());
+        console.log('this.containerHeight: ' + this.containerHeight);
+        console.log('this.containerStart: ' + this.containerStart);
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         if (this.parentMode) {
             this.scrollFinish = this.containerStart - this.start - this.offsetBottom + (this.containerHeight - this.elemHeight);
         }
@@ -157,8 +176,12 @@ var StickyHeaderDirective = (function () {
         this.deactivated.next(this.elem);
     };
     StickyHeaderDirective.prototype.matchMediaQuery = function () {
-        if (!this.mediaQuery)
+        console.log('[][][][][]this.mediaQuery is : ' + this.mediaQuery);
+        if (!this.mediaQuery) {
+            console.log('!this.mediaQuery成立');
+            console.log('matchMedia.media: ' + window.matchMedia(this.mediaQuery).matches);
             return true;
+        }
         return (window.matchMedia('(' + this.mediaQuery + ')').matches ||
             window.matchMedia(this.mediaQuery).matches);
     };

@@ -80,7 +80,7 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.attach();
+
     }
 
     ngAfterViewInit(): void {
@@ -100,6 +100,8 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
 
         console.log('my stickyParent: ' + this.stickyParent);
 
+        console.log('this is: ' + this);
+
         this.originalCss = {
             zIndex: this.getCssValue(this.elem, 'zIndex'),
             position: this.getCssValue(this.elem, 'position'),
@@ -114,6 +116,8 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
         console.log('this element originalCss.top : ' + this.originalCss.top);
         console.log('this element originalCss.right : ' + this.originalCss.right);
 
+        this.attach();
+        this.attachDocument();
 
 
         if (this.width == 'auto') {
@@ -126,16 +130,26 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnDestroy(): void {
         this.detach();
+        this.detachDocument();
     }
 
     attach() {
         window.addEventListener('scroll', this.onScrollBind);
         window.addEventListener('resize', this.onResizeBind);
     }
+    attachDocument() {
+        document.addEventListener('scroll', this.onScrollBind);
+        document.addEventListener('resize', this.onResizeBind);
+    }
+
 
     detach() {
         window.removeEventListener('scroll', this.onScrollBind);
         window.removeEventListener('resize', this.onResizeBind);
+    }
+    detachDocument() {
+        document.removeEventListener('scroll', this.onScrollBind);
+        document.removeEventListener('resize', this.onResizeBind);
     }
 
     onScroll(): void {
@@ -167,6 +181,15 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
         this.elemHeight = this.getCssNumber(this.elem, 'height');
         this.containerHeight = this.getCssNumber(this.container, 'height');
         this.containerStart = containerTop + this.scrollbarYPos() - this.offsetTop + this.start;
+
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log('containerTop: ' + containerTop);
+        console.log('this.windowHeight: ' + this.windowHeight);
+        console.log('this.elemHeight: ' + this.elemHeight);
+        console.log('this.scrollbarYPos(): ' + this.scrollbarYPos());
+        console.log('this.containerHeight: ' + this.containerHeight);
+        console.log('this.containerStart: ' + this.containerStart);
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
         if (this.parentMode) {
             this.scrollFinish = this.containerStart - this.start - this.offsetBottom + (this.containerHeight - this.elemHeight);
@@ -216,7 +239,13 @@ export class StickyHeaderDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     matchMediaQuery(): any {
-        if (!this.mediaQuery) return true;
+        console.log('[][][][][]this.mediaQuery is : ' + this.mediaQuery);
+        if (!this.mediaQuery) {
+            console.log('!this.mediaQuery成立');
+            console.log('matchMedia.media: ' + window.matchMedia(this.mediaQuery).matches);
+
+            return true;
+        }
         return (
             window.matchMedia('(' + this.mediaQuery + ')').matches ||
             window.matchMedia(this.mediaQuery).matches
